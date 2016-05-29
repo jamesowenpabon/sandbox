@@ -1,0 +1,7 @@
+<h1>Portfolio</h1>
+<div ng-repeat="item in portfolioObj">
+	<span ng-click="removeFromPortfolio(portfolioObj,item.ui)">{{item.stockSymbol}}</span>
+	<span>{{item.lastopen}}</span>
+	<span>{{item.lastclose}}</span>
+	<span>{{item.curr}}</span>
+</div>
