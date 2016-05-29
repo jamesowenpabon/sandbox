@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+	<script src="/js/lib/bundlelib.min.js"></script>
+
+	<script>
+
+	var sampleApp = angular.module("app",[]);
+
+	sampleApp.controller('sampleControl', function($scope)	{
+
+		//var sa = this;
+
+		apiFunction = function (callback){
+			var apidata = {
+				aaaaa : {stockSymbol : "JPM", lastopen: 123, lastclose: 125, curr: 127, ui: "aaaaa"},
+				bbbbb: {stockSymbol : "SIR", lastopen: 27, lastclose: 25, curr: 100, ui: "bbbbb"},
+				ccccc: {stockSymbol : "MTG", lastopen: 74, lastclose: 72, curr: 70, ui: "ccccc"},
+			}
+			callback(apidata)
+		}
+
+		apiFunction(function(cbdata)	{
+			$scope.data = cbdata;
+		})
+
+		$scope.portfolioObj = {};
+
+		$scope.displayCompanyInfo = function(arg)	{
+			var val = $("#"+arg).val();
+			var option = $("[value='"+val+"']");
+			$scope.companyIndex = option.data("index-val");
+		}
+
+		$scope.addToPortfolio = function(ci)	{
+			$scope.portfolioObj[ci] = {
+				stockSymbol : $scope.data[ci].stockSymbol,
+				lastopen: $scope.data[ci].lastopen,
+				lastclose: $scope.data[ci].lastclose,
+				curr: $scope.data[ci].curr,
+				ui: $scope.data[ci].ui
+			}
+		}
+
+		$scope.removeFromPortfolio = function(obj, ci)	{
+			delete obj[ci];
+		}
+
+	});
+
+	sampleApp.directive('selection', function()	{
+		return {
+			templateUrl : "./partials/angularAPISelection.html"
+		}
+	});
+
+	sampleApp.directive('portfolio', function()	{
+		return {
+			templateUrl : "./partials/angularAPIPortfolio.html"
+		}
+	});
+
+
+	</script>
+</head>
+
+<body ng-app="app" ng-controller="sampleControl">
+
+<form name="companies">
+<input list="companyList" id="company">
+<datalist id="companyList">
+	<option ng-repeat="companies in data" data-index-val="{{companies.ui}}" value="{{companies.stockSymbol}}">
+</datalist>
+<button ng-click="displayCompanyInfo('company')">select</button>
+</form>
+
+<div id="selectedContainer" selection></div>
+
+<div id="portfolioContainer" portfolio></div>
+
+
+<code>
+<pre>
+
+
+	code here
+
+</pre>
+</code>
+
+</body>
+
+</html>

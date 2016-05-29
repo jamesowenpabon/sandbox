@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<script>
+
+	var ai = {};
+
+	(function(m)	{
+		// "Private"
+		var private1 = "ai private1Value";
+		var private2 = "ai private2Value";
+
+		function privateFunc()	{
+			console.log("ai private Stuff");
+		}
+
+		// "Public"
+		m.public1 = private1;
+		m.publicFunc = privateFunc;
+		m.publicFunc2 = function() {
+			console.log("ai public Stuff");
+		}
+	})(ai)
+	console.log("-------------");
+	console.log(ai.private1);
+	console.log(ai.private2);
+	console.log(ai.privateFunc);
+	console.log(ai.public1);
+	console.log(ai.publicFunc);
+	console.log(ai.publicFunc2);
+	console.log("-------------");
+	var ol = (function(m)	{
+		// "Private"
+		var private1 = "ol private1Value";
+		var private2 = "ol private2Value";
+
+		function privateFunc()	{
+			console.log("ol private Stuff");
+		}
+		return {
+			// "Public"
+			public1 : private1,
+			publicFunc : privateFunc,
+			publicFunc2 : function() {
+				console.log("ol public Stuff")
+			}
+		}
+	})()
+	console.log("-------------");
+	console.log(ol.private1);
+	console.log(ol.private2);
+	console.log(ol.privateFunc);
+	console.log(ol.public1);
+	console.log(ol.publicFunc);
+	console.log(ol.publicFunc2);
+	console.log("-------------");
+
+
+
+</script>
+</head>
+
+<body>
+<pre>
+	var ai = {};
+
+	(function(m)	{
+		// "Private"
+		var private1 = "ai private1Value";
+		var private2 = "ai private2Value";
+
+		function privateFunc()	{
+			console.log("ai private Stuff");
+		}
+
+		// "Public"
+		m.public1 = private1;
+		m.publicFunc = privateFunc;
+		m.publicFunc2 = function() {
+			console.log("ai public Stuff");
+		}
+	})(ai)
+
+	console.log("-------------");
+	console.log(ai.private1);
+	console.log(ai.private2);
+	console.log(ai.privateFunc);
+	console.log(ai.public1);
+	console.log(ai.publicFunc);
+	console.log(ai.publicFunc2);
+	console.log("-------------");
+
+	var ol = (function(m)	{
+		// "Private"
+		var private1 = "ol private1Value";
+		var private2 = "ol private2Value";
+
+		function privateFunc()	{
+			console.log("ol private Stuff");
+		}
+		return {
+			// "Public"
+			public1 : private1,
+			publicFunc : privateFunc,
+			publicFunc2 : function() {
+				console.log("ol public Stuff")
+			}
+		}
+	})()
+
+	console.log("-------------");
+	console.log(ol.private1);
+	console.log(ol.private2);
+	console.log(ol.privateFunc);
+	console.log(ol.public1);
+	console.log(ol.publicFunc);
+	console.log(ol.publicFunc2);
+	console.log("-------------");
+
+</pre>
+</body>
+
+
+</html>

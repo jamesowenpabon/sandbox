@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+<script>
+
+var tm = "Global Message";
+
+function fs()	{
+	console.log(this);
+	var tm = "fs Message";
+	return {tm}
+}
+
+console.log("-------------");
+var fsm = fs();
+console.log(fsm);
+console.log(fsm.tm);
+console.log(tm);
+console.log("-------------");
+
+function fc()	{
+	console.log(this);
+	this.message = "fc Message";
+}
+
+console.log("-------------");
+var fcm = new fc();
+console.log(fcm)
+console.log(fcm.message)
+console.log("-------------");
+
+var ol = {
+		olm : function()	{
+			console.log(this);
+			this.message = "olm message";
+		}
+}
+
+console.log("-------------");
+ol.olm();
+console.log(ol);
+console.log(ol.message)
+console.log("-------------");
+
+</script>
+
+
+
+
+
+</head>
+<body>
+<pre>
+	var tm = "Global Message";
+
+	function fs()	{
+		console.log(this);
+		var tm = "fs Message";
+		return {tm}
+	}
+
+	var fsm = fs();
+	console.log("-------------");
+	console.log(fsm);
+	console.log(fsm.tm);
+	console.log(tm);
+	console.log("-------------");
+
+	function fc()	{
+		console.log(this);
+		this.message = "fc Message";
+	}
+
+	var fcm = new fc();
+	console.log("-------------");
+	console.log(fcm)
+	console.log(fcm.message)
+	console.log("-------------");
+
+	var ol = {
+			olm : function()	{
+				console.log(this);
+				this.message = "olm message";
+			}
+	}
+
+	ol.olm();
+	console.log("-------------");
+	console.log(ol);
+	console.log(ol.message)
+	console.log("-------------");
+</pre>
+</body>
+
+</html>

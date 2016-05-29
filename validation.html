@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+
+<script>
+	function outputUpdate(vol) {
+		document.querySelector('#volume').innerHTML=vol;
+	}
+</script>
+
+<style type="text/css">
+	input:invalid {
+		background-color:red;
+	}
+	input:valid {
+		background-color:green;
+	}
+</style>
+
+
+</head>
+
+<body>
+<h1>Form Examples</h1>
+<form name="testForm" id="testForm">
+<p>
+<label for="patternEx">Pattern Example</label>
+<input id="patternEx" name="patternEx" pattern="bannana|cherry|apple"><br>
+Accepted Patter : bannana|cherry|apple
+</p>
+<p>
+<label for="requireEx">Require Example</label>
+<input id="requireEx" name="requireEx" type="text" required><br>
+</p>
+
+<p>
+<label for="weekEx">Week Example</label>
+<input id="weekEx" name="weekEx" type="week"><br>
+</p>
+
+<p>
+<label for="monthEx">Month Example</label>
+<input id="monthEx" name="monthEx" type="month"><br>
+</p>
+
+<p>
+<label for="emailEx">Email Example</label>
+<input id="emailEx" name="emailEx" type="email" autocomplete><br>
+</p>
+
+<p>
+<label for="rangeEx">Range Example</label>
+<input id="rangeEx" name="rangeEx" type="range" min="0" max="200" step="1" value="10" oninput="outputUpdate(value)"><br>
+<span for="rangeEx" id="volume">10</span>
+</p>
+
+
+
+<button>Submit</button>
+</form>
+
+
+</body>
+
+
+</html>

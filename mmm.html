@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<script>
+
+
+
+arryInt = [1,5,9,2,7,3,7,4,2,7,1,2,0,9,6,9,8,1,9];
+
+averageFunc = function(arg)    {
+    var len = arg.length;
+    var sum = 0;
+    for (i=0;i<len;i++) {
+		sum += arg[i]
+    }
+    return Math.floor(sum/len);
+}
+
+medianFunc = function(arg)    {
+    var median = arg.sort(function(a,b) {return a - b;});
+    var index = Math.ceil(arg.length/2)-1;
+    return median[index];
+}
+
+modeFunc = function(arg)    {
+    var len = arg.length;
+    var sortArr = arg.sort(function(a,b) {return a - b;});
+	var modeArr = [];
+    for (i=0;i<len;i++) {
+		modeArr[sortArr[i]] = modeArr[sortArr[i]] || 0;
+        modeArr[sortArr[i]] += 1
+    }
+	var index = modeArr.indexOf(Math.max(... modeArr));
+	var mi = 0
+	for (i=0;i<index;i++)	{
+		mi += modeArr[i];
+	}
+	return sortArr[mi];
+}
+
+console.log(... (arryInt.sort(function(a,b){return a-b})));
+myAverage = averageFunc(arryInt);
+console.log("Average: "+myAverage);
+myMedian = medianFunc(arryInt);
+console.log("Median: "+myMedian);
+myMode = modeFunc(arryInt);
+console.log("Mode: "+myMode);
+
+</script>
+</head>
+
+<body>
+
+<pre>
+<code>
+	arryInt = [1,5,9,2,7,3,7,4,2,7,1,2,0,9,6,9,8,1,9];
+
+	averageFunc = function(arg)    {
+		var len = arg.length;
+		var sum = 0;
+		for (i=0;i&#60;len;i++) {
+			sum += arg[i]
+		}
+		return Math.floor(sum/len);
+	}
+
+	medianFunc = function(arg)    {
+		var median = arg.sort(function(a,b) {return a - b;});
+		var index = Math.ceil(arg.length/2)-1;
+		return median[index];
+	}
+
+	modeFunc = function(arg)    {
+		var len = arg.length;
+		var sortArr = arg.sort(function(a,b) {return a - b;});
+		var modeArr = [];
+		for (i=0;i&#60;len;i++) {
+			modeArr[sortArr[i]] = modeArr[sortArr[i]] || 0;
+			modeArr[sortArr[i]] += 1
+		}
+		var index = modeArr.indexOf(Math.max(... modeArr));
+		var mi = 0
+		for (i=0;i&#60;index;i++)	{
+			mi += modeArr[i];
+		}
+		return sortArr[mi];
+	}
+
+	console.log(... (arryInt.sort(function(a,b){return a-b})));
+	myAverage = averageFunc(arryInt);
+	console.log("Average: "+myAverage);
+	myMedian = medianFunc(arryInt);
+	console.log("Median: "+myMedian);
+	myMode = modeFunc(arryInt);
+	console.log("Mode: "+myMode);
+</code>
+</pre>
+
+</body>
+
+</html>

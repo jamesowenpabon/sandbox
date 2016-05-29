@@ -1,0 +1,40 @@
+/* Print Style Sheet */
+
+.logo-print {
+	display: block;
+}
+
+body, .header, .article-text {
+	background: none;
+}
+
+#navigation, #primary-nav, .logo, .destination, .profileBox, #searchBox, .article-icons, .article-related, ul.tag-list, .footer, .recommend, .articleFeatureImage {
+	display: none;
+}
+
+#stickyTopBar, .header {
+	position: relative;
+}
+
+.content {
+	padding: 0;
+}
+
+.article-text {
+	width: 100%;
+	padding: 0;
+}
+
+.article-author, .article-date, p.source, div.source {
+	color: #131E29;
+}
+
+p.source, div.source {
+	font-size: 1em;
+}
+
+.article-text img.chart {
+	max-width: 750px;
+}
+
+

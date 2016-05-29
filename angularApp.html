@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+	<script src="/js/lib/bundlelib.min.js"></script>
+
+	<script>
+
+	var sampleApp = angular.module("app",[]);
+
+	sampleApp.controller('sampleControl', function($scope)	{
+		$scope.data = [
+			{id : "one", content: "one content"},
+			{id : "two", content: "two content"},
+			{id : "three", content: "three content"}
+		]
+	});
+
+	sampleApp.directive('list', function()	{
+		return {
+			scope : {
+				listSet : "="
+			},
+			restrict : "A",
+			template : "<ul><li ng-repeat='items in listSet' id='{{items.id}}' >{{items.content}}</li></ul>"
+		}
+	});
+
+
+
+	</script>
+</head>
+
+<body ng-app="app" ng-controller="sampleControl">
+
+<span list list-set="data"></span>
+
+<code>
+<pre>
+
+
+	var sampleApp = angular.module("app",[]);
+
+	sampleApp.controller('sampleControl', function($scope)	{
+		$scope.data = [
+			{id : "one", content: "one content"},
+			{id : "two", content: "two content"},
+			{id : "three", content: "three content"}
+		]
+	});
+
+	sampleApp.directive('list', function()	{
+		return {
+			scope : {
+				listSet : "="
+			},
+			restrict : "A",
+			template : "&#60;ul&#62;&#60;li ng-repeat='items in listSet' id='{items.id}' &#62;{items.content}&#60;/li&#62;&#60;/ul&#62;"
+		}
+	});
+
+
+</pre>
+</code>
+
+</body>
+
+</html>

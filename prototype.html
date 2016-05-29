@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+<script>
+
+	var nameObj = {
+		fname:"James"
+	}
+	function pt(obj)	{
+		this.fname = obj.fname;
+	}
+	pt.prototype.lname = "Pabon";
+
+	ptObj = new pt(nameObj);
+	ptObj.lname = "Johnston"
+	console.log("-------------");
+	console.log(ptObj.lname);
+	console.log(ptObj.__proto__.lname);
+	console.log("-------------");
+
+	var tptcObj = {
+		fname : "val"
+	}
+	tptcObj.lname = "johnston";
+
+	myObj =  Object.create(tptcObj);
+	myObj.lname = "pabon";
+	console.log("-------------");
+	console.log(myObj.lname);
+	console.log(myObj.__proto__.lname);
+	console.log("-------------");
+</script>
+
+
+
+
+
+</head>
+<body>
+<pre>
+	var nameObj = {
+		fname:"James"
+	}
+	function pt(obj)	{
+		this.fname = obj.fname;
+	}
+	pt.prototype.lname = "Pabon";
+
+	ptObj = new pt(nameObj);
+	ptObj.lname = "Johnston"
+
+	console.log("-------------");
+	console.log(ptObj.lname);
+	console.log(ptObj.__proto__.lname);
+	console.log("-------------");
+
+	var tptcObj = {
+		fname : "val"
+	}
+	tptcObj.lname = "johnston";
+
+	myObj =  Object.create(tptcObj);
+	myObj.lname = "pabon";
+
+	console.log("-------------");
+	console.log(myObj.lname);
+	console.log(myObj.__proto__.lname);
+	console.log("-------------");
+</pre>
+</body>
+
+</html>

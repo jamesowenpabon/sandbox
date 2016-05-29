@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head></head>
+
+<body>
+<pre>
+	//Module Definition
+		var sampleApp = angular.module("modName",["neededMod"]);
+
+	//Configuration Definition
+		sampleApp.config(function($injectableProvider) {
+			{code here}
+		});
+
+	//Controller Definition
+		sampleApp.controller("controllerName", [$dependancyInjection, function($dependancyInjection){
+			{code here}
+		}])
+
+	//Directive Definition
+		sampleApp.directive("directiveName", [$dependancyInjection, function($dependancyInjection) {
+			return {
+				link : function(scope, element, atttrs)	{
+					{code here}
+				}
+			}
+		}]);
+</pre>
+</body>
+
+
+</html>

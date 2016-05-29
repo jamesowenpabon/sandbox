@@ -1,0 +1,286 @@
+<!DOCTYPE html/>
+
+<html lang="en">
+
+<head>
+	<title>Ajax</title>
+	<meta charset="UFT-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="../../css/lib/bundlelib.min.css">
+	<script src="../../js/lib/bundlelib.min.js"></script>
+
+	<script>
+
+	//Example of a set of object which retrieve JSON content
+	//and handle a retry on an error flow.
+	//The use case is for authenitication failure however
+	//the ajax failure is being created with a 404 instead of a 401.
+
+		//Ajax Request Object
+		ajaxRequest = {
+			//Simple Ajax Method
+			async : function(cb)	{
+						console.log("this.async method invoked");
+						console.log("--------------------------------")
+						rc = $.ajax({
+						context: this,
+						url : this.file,
+						dataType: this.datatype
+						})
+						rc.done(function( data, textStatus, jqXHR ) {
+							console.log("Ajax Done method invoked");
+							console.log("--------------------------------")
+							ps = this.success(data, textStatus, jqXHR);
+							cb(ps);
+						})
+						rc.fail(function( jqXHR, textStatus, errorThrown ) {
+							console.log("Ajax Failure method invoked");
+							console.log("--------------------------------")
+							pf = this.fail(jqXHR, textStatus, errorThrown, cb);
+						})
+			},
+			//Simulated Login Method
+			login : function(cb) {
+				console.log("this.login method invoked")
+				console.log("--------------------------------")
+				//This method would attempt to authenticate
+				//and come back sucessfully.
+				//We simulate this here
+				console.log("Simulated login sucess");
+				console.log("--------------------------------")
+				console.log("| We remember the original request:" + this.file);
+				//Fix the file url so it wont get an error condition anymore
+				//to simulate correct authentification.
+				this.file = "./testJSON.json";
+				console.log("| But we are going to change it to the correct "+
+				"reference so we dont get an error condition:" + this.file);
+				console.log("--------------------------------")
+				cb.call(this);
+			}
+		}
+
+		getCard = Object.create(ajaxRequest);
+		getCard.ajaxCall = function(cb)	{
+			console.log("--------------------------------")
+			console.log("| chart.ajaxCall method invoked.")
+			console.log("| original request is:" +this.file);
+			console.log("--------------------------------")
+			this.async(function(rc)	{
+				cb(rc);
+			});
+		}
+		getCard.success = function(data, textStatus, jqXHR)	{
+		console.log("getCard.success method invoked")
+			//do stuff with return data if needed;
+			pd = jqXHR.responseJSON;
+			return pd;
+		}
+		getCard.fail = function(jqXHR, textStatus, errorThrown, cb)	{
+		console.log("getCard.fail method invoked")
+		console.log("--------------------------------")
+			//do stuff with error if needed;
+			this.login(function(){
+				this.ajaxCall(function(rc)	{
+					console.log("Final callback invoked from failure flow");
+					console.log("--------------------------------")
+					cb(rc);
+				});
+			})
+		}
+
+	$( document ).ready(function() {
+
+		$("#sucessBtn").click(function()	{
+			console.clear();
+			chart1 = Object.create(getCard);
+			chart1.file = "./testJSON.json";
+			chart1.type = "json";
+
+			chart1.ajaxCall(function(rc)	{
+				console.log("Ajax response returned")
+				console.log(rc);
+				console.log("--------------------------------")
+				output(rc, "sucess");
+			})
+		})
+
+		$("#failBtn").click(function()	{
+			console.clear();
+			chart2 = Object.create(getCard);
+			chart2.file = "./testJSON.jso";
+			chart2.type = "json";
+
+			chart2.ajaxCall(function(rc)	{
+				console.log("Ajax response returned")
+				console.log(rc);
+				console.log("--------------------------------")
+				output(rc, "fail");
+			})
+		})
+
+
+		function output(data, div)	{
+			$("#"+div+"Div").html("")
+			for (contact in data['contacts'])	{
+				var value = data['contacts'][Number(contact)];
+				value['fullname'] = value.lastname + ", " + value.firstname;
+				for (item in value) {
+					var node = document.createElement("p");
+					node.appendChild(document.createTextNode(value[item]));
+					$("#"+div+"Div").append(node)
+				}
+			}
+		}
+	});
+
+	</script>
+</head>
+
+<body>
+
+<div class="container">
+<div class="row">
+	<div class="col-xs-12 col-sm-12 col-md-12">
+	<p>
+		//Example of set of objects which retrieve  a JSON object containing array of contact info </br>
+		//and handles a retry of original URI on an error flow.</br>
+		//The use case is for authentication  failure however</br>
+		//the ajax failure is being created with a 404 instead of a 401.</br>
+	</p>
+
+	<h4>Open JavaScript console for step through  - Returned JSON will appear  below. JS Code displayed below.</h4>
+
+	</div>
+</div>
+
+<div class="row">
+
+
+	<div class="col-xs-12 col-sm-6 col-md-6">
+		<p><button id="sucessBtn" class="btn btn-primary">Click to show Success  Condition</button></p>
+		<div id="sucessDiv"></div>
+	</div>
+
+
+	<div class="col-xs-12 col-sm-6 col-md-6">
+		<p><button id="failBtn" class="btn btn-primary">Click to show Fail Condition</button></p>
+		<div id="failDiv"></div>
+	</div>
+
+</div>
+
+<div class="row">
+<h4>Below <code>ajaxRequest</code> is an object which is the __proto__ for <code>getCard</code> which is in turn the
+	__proto__ for the chart objects created below.</h4>
+<pre>
+
+//Ajax Request Object
+ajaxRequest = {
+	//Simple Ajax Method
+	async : function(cb)	{
+			console.log("this.async method invoked");
+			console.log("--------------------------------")
+			rc = $.ajax({
+			context: this,
+			url : this.file,
+			dataType: this.datatype
+			})
+			rc.done(function( data, textStatus, jqXHR ) {
+				console.log("Ajax Done method invoked");
+				console.log("--------------------------------")
+				ps = this.success(data, textStatus, jqXHR);
+				cb(ps);
+			})
+			rc.fail(function( jqXHR, textStatus, errorThrown ) {
+				console.log("Ajax Failure method invoked");
+				console.log("--------------------------------")
+				pf = this.fail(jqXHR, textStatus, errorThrown, cb);
+			})
+	},
+	//Simulated Login Method
+	login : function(cb) {
+		console.log("this.login method invoked")
+		console.log("--------------------------------")
+		//This method would attempt to authenticate
+		//and come back successfully.
+		//We simulate this here
+		console.log("Simulated login success");
+		console.log("--------------------------------")
+		console.log("| We remember the original request:" + this.file);
+		//Fix the file url so it wont get an error condition anymore
+		//to simulate correct authentication.
+		this.file = "./testJSON.json";
+		console.log("| But we are going to change it to the correct "+
+		"reference so we dont get an error condition:" + this.file);
+		console.log("--------------------------------")
+		cb.call(this);
+	}
+}
+
+getCard = Object.create(ajaxRequest);
+getCard.ajaxCall = function(cb)	{
+	console.log("--------------------------------")
+	console.log("| chart1.ajaxCall method invoked.")
+	console.log("| original request is:" +this.file);
+	console.log("--------------------------------")
+	this.async(function(rc)	{
+		cb(rc);
+	});
+}
+getCard.success = function(data, textStatus, jqXHR)	{
+console.log("getCard.success method invoked")
+	//do stuff with return data if needed;
+	pd = jqXHR.responseJSON;
+	return pd;
+}
+getCard.fail = function(jqXHR, textStatus, errorThrown, cb)	{
+console.log("getCard.fail method invoked")
+console.log("--------------------------------")
+	//do stuff with error if needed;
+	this.login(function(){
+		this.ajaxCall(function(rc)	{
+			console.log("Final callback invoked from failure flow");
+			console.log("--------------------------------")
+			cb(rc);
+		});
+	})
+}
+
+$("#sucessBtn").click(function()	{
+	console.clear();
+	chart1 = Object.create(getCard);
+	chart1.file = "./testJSON.json";
+	chart1.type = "json";
+
+	chart1.ajaxCall(function(rc)	{
+		console.log("Ajax response returned")
+		console.log(rc);
+		console.log("--------------------------------")
+	})
+})
+
+$("#failBtn").click(function()	{
+	console.clear();
+	chart2 = Object.create(getCard);
+	chart2.file = "./testJSON.jso";
+	chart2.type = "json";
+
+	chart2.ajaxCall(function(rc)	{
+		console.log("Ajax response returned")
+		console.log(rc);
+		console.log("--------------------------------")
+	})
+})
+
+</pre>
+
+
+</div>
+
+</div>
+
+
+</body>
+
+
+</html>
